@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HateSense AI</title>
+
+  <!-- Link to your CSS -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="logo">🔥 HateSense AI</div>
+    <button id="sidebar-toggle" class="sidebar-toggle" aria-expanded="true">☰</button>
+    <button id="mode-toggle" class="mode-toggle" title="Toggle light/dark mode">🌙</button>
+  </header>
+
+  <!-- SIDEBAR -->
+  <nav id="sidebar" class="sidebar active">
+    <ul class="sidebar-list">
+      <li><a href="index.html" class="sidebar-link active">Home</a></li>
+      <li><a href="input.html" class="sidebar-link">Analyze</a></li>
+      <li><a href="about.html" class="sidebar-link">About</a></li>
+    </ul>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main class="home-container">
+    <div class="home-main">
+
+      <section class="glass-card home-content">
+        <div class="home-icon">🧠</div>
+        <h2>Welcome to HateSense AI</h2>
+        <p>This tool detects hate speech and analyzes sentiment in tweets using machine learning.</p>
+        <a href="input.html" class="btn btn-glow">Start Analyzing</a>
+      </section>
+
+      <!-- Charts Section -->
+      <section class="glass-card">
+        <h3>Sentiment Analysis</h3>
+        <canvas id="sentimentChart" width="400" height="200"></canvas>
+        <p id="sentimentInsight" class="insight-text"></p>
+      </section>
+
+      <section class="glass-card">
+        <h3>Hate Speech Detection</h3>
+        <canvas id="hateChart" width="400" height="200"></canvas>
+        <p id="hateInsight" class="insight-text"></p>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+</body>
+</html>
+
+

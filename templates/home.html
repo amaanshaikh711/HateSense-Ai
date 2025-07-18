@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HateSense AI - Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body class="dark-mode">
+  <header class="header">
+    <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle Sidebar">&#9776;</button>
+    <h1 class="logo centered-logo">HateSense AI </h1>
+    <button id="mode-toggle" class="mode-toggle" aria-label="Toggle Dark Mode">🌙</button>
+  </header>
+
+  <aside id="sidebar" class="sidebar active" aria-label="Sidebar Navigation">
+    <ul class="sidebar-list">
+      <li><a href="{{ url_for('home') }}" class="sidebar-link active">Home</a></li>
+      <li><a href="{{ url_for('input_page') }}" class="sidebar-link">Analyzer</a></li>
+      <li><a href="{{ url_for('dashboard') }}" class="sidebar-link">Dashboard</a></li>
+      <li><a href="{{ url_for('about') }}" class="sidebar-link">About</a></li>
+      <li><a href="{{ url_for('blog') }}" class="sidebar-link">Blog</a></li>
+      <li><a href="#" class="sidebar-link">Export</a></li>
+      <li><a href="#" class="sidebar-link">Settings</a></li>
+    </ul>
+  </aside>
+
+  <main class="home-container">
+    <section class="home-main">
+      <div class="home-content glass-card">
+        <div class="home-icon">🤖</div>
+        <h2>Welcome to HateSense AI</h2>
+        <p>HateSense AI leverages cutting-edge artificial intelligence to detect, analyze, and combat hate speech on social media platforms like Twitter. Our mission is to foster safer, more inclusive online communities by providing accurate, real-time insights while respecting user privacy.</p>
+        <a href="{{ url_for('input_page') }}" class="btn btn-glow">Start Analyzing Now <span class="down-arrow">⬇️</span></a>
+      </div>
+
+      <section class="flashcards-section">
+        <h2 class="section-title"><i class="fas fa-chart-bar"></i> Real-Time Hate Speech Analytics</h2>
+        <div class="flashcards-container">
+          <div class="flashcard glass-card glow-on-hover">
+            <h3>Sentiment Classification</h3>
+            <p>Hate / Offensive / Neutral / Positive</p>
+          </div>
+          <div class="flashcard glass-card glow-on-hover">
+            <h3>Hate Category</h3>
+            <p>Racism, Religion-based, Gender, etc.</p>
+          </div>
+          <div class="flashcard glass-card glow-on-hover">
+            <h3>Toxicity Score</h3>
+            <p>Confidence level of harmful intent</p>
+          </div>
+          <div class="flashcard glass-card glow-on-hover">
+            <h3>Visual Insights</h3>
+            <p>Interactive pie and bar graphs of overall dataset</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="flashcards-section">
+        <h2 class="section-title"><i class="fas fa-chart-line"></i> Insights from 1M+ Tweets Analyzed</h2>
+        <div class="flashcards-container">
+          <div class="flashcard glass-card glow-on-hover">
+            <p><strong>37%</strong> Hate/Offensive</p>
+          </div>
+          <div class="flashcard glass-card glow-on-hover">
+            <p><strong>53%</strong> Neutral</p>
+          </div>
+          <div class="flashcard glass-card glow-on-hover">
+            <p><strong>10%</strong> Positive</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="how-it-works glass-card">
+        <h2><i class="fas fa-rocket"></i> How It Works</h2>
+        <ol>
+          <li>Text is Submitted</li>
+          <li>Processed with NLP Model</li>
+          <li>Toxicity and Hate Probability is Calculated</li>
+          <li>Category & Score are Returned to User</li>
+          <li>Graphs Show Trends from Entire Database</li>
+        </ol>
+      </section>
+
+      <section class="privacy-section glass-card">
+        <h2><i class="fas fa-lock"></i> Privacy First, Always</h2>
+        <p>We do not collect any personal user information. All entries are processed anonymously, ensuring your data stays yours.</p>
+      </section>
+
+      <section class="users-section glass-card">
+        <h2><i class="fas fa-users"></i> Who Can Use HateSense AI?</h2>
+        <ul>
+          <li>Journalists & Media Analysts</li>
+          <li>NGOs and Human Rights Organizations</li>
+          <li>Law Enforcement & Cyber Safety Cells</li>
+          <li>Educators & Researchers</li>
+          <li>Everyday users concerned about online hate</li>
+        </ul>
+      </section>
+
+      <section class="testimonial-section glass-card">
+        <h2><i class="fas fa-comment-dots"></i> User Testimonial</h2>
+        <blockquote>
+          “HateSense AI gave me clarity on the kind of toxic language that spreads on Twitter. It’s a much-needed tool for content moderation.”
+          <footer>— Priya Mehta, Social Media Analyst</footer>
+        </blockquote>
+      </section>
+
+      <section class="newsletter-section glass-card">
+        <h2><i class="fas fa-envelope"></i> Stay Updated</h2>
+        <p>Subscribe to our newsletter for:</p>
+        <ul>
+          <li>Monthly trend reports</li>
+          <li>New hate detection model releases</li>
+          <li>API access and upcoming features</li>
+        </ul>
+        <a href="#" class="btn btn-glow">Subscribe Now</a>
+      </section>
+    </section>
+  </main>
+
+  <!-- footer sections -->
+
+<footer class="footer">
+  <div class="footer-container">
+    <div>
+      <h3>Our Mission</h3>
+      <p>
+        We aim to use artificial intelligence to detect and reduce hate speech and vulgar content on social media. By analyzing sentiment and offensive language, our project helps create a safer and more respectful online space.
+        <br><br>
+        Our technology uses machine learning to identify patterns in toxic language, empowering platforms and users to filter negativity. Together, we fight digital hate one post at a time!
+      </p>
+    </div>
+    <div>
+      <h3>Our Vision</h3>
+      <p>
+        To build a future where digital conversations are inclusive, clean, and free of hostility. Our vision is a world where AI is used not only for convenience, but also for compassion and community wellbeing.
+        <br><br>
+        We envision widespread use of our tools in schools, offices, and public platforms, where content quality matters. Let’s make the internet a better place.
+      </p>
+    </div>
+    <div>
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="about.html">📘 About</a></li>
+        <li><a href="services.html">🛠️ Services</a></li>
+        <li><a href="contact.html">📞 Contact</a></li>
+      </ul>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2025 Amaan Shaikh. All rights reserved.
+  </div>
+</footer>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

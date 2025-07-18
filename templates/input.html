@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HateSense AI - Analyzer</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #0d0d1a;
+      color: #fff;
+    }
+
+    .main-content {
+      margin-left: 240px;
+      padding: 50px 20px;
+    }
+
+    .analyze-tweets-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 70vh;
+      text-align: center;
+    }
+
+    .analyze-header h2 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      color: #cfa8ff;
+    }
+
+    .analyze-header p {
+      color: #aaa;
+      margin-bottom: 30px;
+    }
+
+    .analyze-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .input-wrapper {
+      position: relative;
+      width: 100%;
+    }
+
+    .twitter-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.5rem;
+      color: #8a2be2;
+    }
+
+    .analyze-input {
+      width: 100%;
+      padding: 16px 16px 16px 45px;
+      border: none;
+      border-radius: 12px;
+      background: #1a1a2e;
+      color: #fff;
+      font-size: 1.2rem;
+      box-shadow: 0 0 10px rgba(138, 43, 226, 0.2);
+    }
+
+    .analyze-input:focus {
+      outline: 2px solid #8a2be2;
+    }
+
+    .analyze-btn {
+      background: linear-gradient(90deg, #8a2be2, #a65bff);
+      color: #fff;
+      padding: 16px 35px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.3s ease;
+      box-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
+    }
+
+    .analyze-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(138, 43, 226, 0.8);
+    }
+
+    .result-section {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+
+    .result-card {
+      background: #1f1f2e;
+      padding: 20px;
+      border-radius: 12px;
+      width: 300px;
+      text-align: center;
+      box-shadow: 0 0 6px rgba(255, 255, 255, 0.05);
+    }
+
+    .result-card h3 {
+      color: #cfa8ff;
+      margin-bottom: 10px;
+    }
+
+    .charts-section {
+      margin-top: 60px;
+      padding: 20px;
+    }
+
+    .chart-container {
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .chart-container h3 {
+      margin-bottom: 10px;
+      color: #cfa8ff;
+    }
+
+    .chart-container img {
+      width: 90%;
+      max-width: 600px;
+      border-radius: 10px;
+      background: #fff;
+      padding: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #aaa;
+    }
+
+    @media (max-width: 768px) {
+      .main-content {
+        margin-left: 0;
+        padding: 20px;
+      }
+      .analyze-tweets-section {
+        min-height: 60vh;
+      }
+    }
+  </style>
+</head>
+<body class="dark-mode">
+  <header class="header">
+    <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle Sidebar">&#9776;</button>
+    <h1 class="logo centered-logo">HateSense AI</h1>
+    <button id="mode-toggle" class="mode-toggle" aria-label="Toggle Dark Mode">🌙</button>
+  </header>
+
+  <aside id="sidebar" class="sidebar active" aria-label="Sidebar Navigation">
+    <ul class="sidebar-list">
+      <li><a href="{{ url_for('home') }}" class="sidebar-link">Home</a></li>
+      <li><a href="{{ url_for('input_page') }}" class="sidebar-link active">Analyzer</a></li>
+      <li><a href="#" class="sidebar-link">Dashboard</a></li>
+      <li><a href="{{ url_for('about') }}" class="sidebar-link">About</a></li>
+      <li><a href="{{ url_for('blog') }}" class="sidebar-link">Blog</a></li>
+      <li><a href="#" class="sidebar-link">Export</a></li>
+      <li><a href="#" class="sidebar-link">Settings</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content" role="main">
+    <section class="analyze-tweets-section">
+      <div class="analyze-header">
+        <span class="analyze-icon">🔍</span>
+        <h2>Analyze Tweets</h2>
+        <p>Enter a Twitter handle to begin the analysis.</p>
+      </div>
+      <form method="POST" action="{{ url_for('input_page') }}" class="analyze-form">
+        <div class="input-wrapper">
+          <span class="twitter-icon">🐦</span>
+          <input type="text" name="user_input" placeholder="@username or twitter.com/username" required value="{{ user_input or '' }}" class="analyze-input" />
+        </div>
+        <button type="submit" class="analyze-btn">Scrape & Analyze Tweets</button>
+      </form>
+    </section>
+
+    <section class="result-section">
+      <div class="result-card">
+        <h3>Sentiment</h3>
+        <p>{{ sentiment or '--' }}</p>
+      </div>
+      <div class="result-card">
+        <h3>Hate Speech</h3>
+        <p>{{ hate_speech or '--' }}</p>
+      </div>
+      <div class="result-card">
+        <h3>Vulgarity Level</h3>
+        <p>{{ vulgarity or '--' }}</p>
+      </div>
+      <div class="result-card">
+        <h3>Offensive Word Count</h3>
+        <p>{{ offensive_word_count or '--' }}</p>
+      </div>
+    </section>
+
+    <section class="charts-section">
+      <div class="chart-container">
+        <h3>Sentiment Distribution (Pie)</h3>
+        {% if pie_chart %}
+        <img src="{{ url_for('static', filename='charts/' + pie_chart) }}" alt="Sentiment Pie Chart">
+        {% else %}
+        <p>Submit a username to generate insights.</p>
+        {% endif %}
+      </div>
+
+      <div class="chart-container">
+        <h3>Hate Speech Count (Bar)</h3>
+        {% if bar_chart %}
+        <img src="{{ url_for('static', filename='charts/' + bar_chart) }}" alt="Hate Bar Chart">
+        {% else %}
+        <p>Submit a username to generate insights.</p>
+        {% endif %}
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2025 HateSense AI</p>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  <!-- footer sections -->
+
+<footer class="footer">
+  <div class="footer-container">
+    <div>
+      <h3>Our Mission</h3>
+      <p>
+        We aim to use artificial intelligence to detect and reduce hate speech and vulgar content on social media. By analyzing sentiment and offensive language, our project helps create a safer and more respectful online space.
+        <br><br>
+        Our technology uses machine learning to identify patterns in toxic language, empowering platforms and users to filter negativity. Together, we fight digital hate one post at a time!
+      </p>
+    </div>
+    <div>
+      <h3>Our Vision</h3>
+      <p>
+        To build a future where digital conversations are inclusive, clean, and free of hostility. Our vision is a world where AI is used not only for convenience, but also for compassion and community wellbeing.
+        <br><br>
+        We envision widespread use of our tools in schools, offices, and public platforms, where content quality matters. Let’s make the internet a better place.
+      </p>
+    </div>
+    <div>
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="about.html">📘 About</a></li>
+        <li><a href="services.html">🛠️ Services</a></li>
+        <li><a href="contact.html">📞 Contact</a></li>
+      </ul>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2025 Amaan Shaikh. All rights reserved.
+  </div>
+</footer>
+</body>
+</html>

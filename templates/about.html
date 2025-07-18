@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us - HateSense AI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome CDN for social icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    .flashcard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin: 40px 0;
+    }
+
+    .flashcard {
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 15px;
+      transition: 0.3s ease;
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.05);
+      text-align: center;
+    }
+
+    .flashcard:hover {
+      box-shadow: 0 0 15px rgba(100, 100, 255, 0.5);
+      transform: translateY(-5px);
+    }
+
+    .flashcard h3 {
+      color: #ffffff;
+      margin-bottom: 10px;
+    }
+
+    .flashcard p {
+      color: #ccc;
+      font-size: 0.95rem;
+    }
+
+    .chart-container {
+      margin-top: 50px;
+      background: #1e1e1e;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    canvas {
+      max-width: 500px;
+      margin: 20px auto;
+      display: block;
+    }
+  </style>
+</head>
+<body class="dark-mode">
+  <!-- Header -->
+  <header class="header">
+    <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle Sidebar">&#9776;</button>
+    <h1 class="logo centered-logo">HateSense AI</h1>
+    <button id="mode-toggle" class="mode-toggle" aria-label="Toggle Dark Mode">🌙</button>
+  </header>
+
+  <!-- Sidebar -->
+  <aside id="sidebar" class="sidebar active" aria-label="Sidebar Navigation">
+    <ul class="sidebar-list">
+      <li><a href="{{ url_for('home') }}" class="sidebar-link">Home</a></li>
+      <li><a href="{{ url_for('input_page') }}" class="sidebar-link">Analyzer</a></li>
+      <li><a href="{{ url_for('dashboard') }}" class="sidebar-link">Dashboard</a></li>
+      <li><a href="{{ url_for('about') }}" class="sidebar-link active">About</a></li>
+      <li><a href="{{ url_for('blog') }}" class="sidebar-link">Blog</a></li>
+      <li><a href="#" class="sidebar-link">Export</a></li>
+      <li><a href="#" class="sidebar-link">Settings</a></li>
+    </ul>
+  </aside>
+
+  <!-- ✅ MAIN FIXED WRAPPER -->
+  <main class="home-container">
+    <section class="home-main">
+      <!-- ✅ About Section Wrapped in Card -->
+      <div class="glass-card about-section">
+        <h2>About HateSense AI</h2>
+        <p>HateSense AI is a pioneering platform dedicated to combating online hate speech through advanced artificial intelligence and machine learning techniques. Our mission is to create safer, more inclusive digital spaces by detecting and analyzing harmful content in real-time.</p>
+        <p>Founded by a team of passionate data scientists, AI researchers, and social activists, HateSense AI combines cutting-edge technology with a deep commitment to social justice and digital well-being.</p>
+        <p>We believe in transparency, accuracy, and user privacy, ensuring our tools empower communities without compromising individual rights.</p>
+
+        <h3>Our Vision</h3>
+        <p>To be the leading AI-driven solution for hate speech detection, fostering respectful and positive online interactions worldwide.</p>
+
+        <h3>Our Values</h3>
+        <ul>
+          <li><strong>Integrity:</strong> We uphold the highest ethical standards in AI development and deployment.</li>
+          <li><strong>Innovation:</strong> Continuously advancing our technology to stay ahead of evolving online threats.</li>
+          <li><strong>Inclusivity:</strong> Promoting diversity and fairness in our models and practices.</li>
+          <li><strong>Privacy:</strong> Respecting user data and ensuring confidentiality at all times.</li>
+        </ul>
+      </div>
+
+      <!-- 🔥 Flashcards Section -->
+      <div class="flashcard-grid">
+        <div class="flashcard">
+          <h3>🔍 Detects Hate</h3>
+          <p>Automatically flags and scores hate speech in real time using AI.</p>
+        </div>
+        <div class="flashcard">
+          <h3>📊 Provides Insights</h3>
+          <p>Visual trends help understand the landscape of toxic behavior online.</p>
+        </div>
+        <div class="flashcard">
+          <h3>🛡️ Promotes Safety</h3>
+          <p>Supports moderators and platforms in keeping communities safe.</p>
+        </div>
+      </div>
+
+      <!-- 📈 Chart Section -->
+      <div class="chart-container">
+        <h2 style="text-align: center;">Sample Hate Speech Analysis</h2>
+        <canvas id="pieChart"></canvas>
+        <canvas id="barChart"></canvas>
+      </div>
+    </section>
+  </main>
+
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  <script>
+    const pieCtx = document.getElementById('pieChart').getContext('2d');
+    new Chart(pieCtx, {
+      type: 'pie',
+      data: {
+        labels: ['Hate Speech', 'Neutral', 'Offensive', 'Safe'],
+        datasets: [{
+          data: [40, 25, 20, 15],
+          backgroundColor: ['#e74c3c', '#f1c40f', '#9b59b6', '#2ecc71'],
+        }]
+      }
+    });
+
+    const barCtx = document.getElementById('barChart').getContext('2d');
+    new Chart(barCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr'],
+        datasets: [{
+          label: 'Hate Speech Cases',
+          data: [12, 19, 8, 15],
+          backgroundColor: '#e74c3c'
+        }]
+      },
+      options: {
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+
+    
+
+    
+  </script>
+
+  <script src="script.js"></script> <!-- Make sure this is at the bottom before </body> -->
+
+<!-- footer sections -->
+
+<footer class="footer">
+  <div class="footer-container">
+    <div>
+      <h3>Our Mission</h3>
+      <p>
+        We aim to use artificial intelligence to detect and reduce hate speech and vulgar content on social media. By analyzing sentiment and offensive language, our project helps create a safer and more respectful online space.
+        <br><br>
+        Our technology uses machine learning to identify patterns in toxic language, empowering platforms and users to filter negativity. Together, we fight digital hate one post at a time!
+      </p>
+    </div>
+    <div>
+      <h3>Our Vision</h3>
+      <p>
+        To build a future where digital conversations are inclusive, clean, and free of hostility. Our vision is a world where AI is used not only for convenience, but also for compassion and community wellbeing.
+        <br><br>
+        We envision widespread use of our tools in schools, offices, and public platforms, where content quality matters. Let’s make the internet a better place.
+      </p>
+    </div>
+    <div>
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="about.html">📘 About</a></li>
+        <li><a href="services.html">🛠️ Services</a></li>
+        <li><a href="contact.html">📞 Contact</a></li>
+      </ul>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2025 Amaan Shaikh. All rights reserved.
+  </div>
+</footer>
+
+
+<!-- Footer Section -->
+
+
+
+
+
+</body>
+</html>

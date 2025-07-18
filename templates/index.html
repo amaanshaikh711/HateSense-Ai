@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HateSense AI - Home</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body class="dark-mode">
+  <div class="home-container">
+    <header class="header">
+      <h1 class="logo">HateSense AI</h1>
+    </header>
+
+    <main class="home-main">
+      <div class="home-content">
+        <div class="home-icon">🤖</div>
+        <h2>HateSense AI</h2>
+        <p>
+          Leveraging artificial intelligence to detect, analyze, and combat hate speech on Twitter, fostering a safer digital environment.
+        </p>
+        <a href="{{ url_for('input_page') }}" class="btn-glow">Start Analyzing Now</a>
+      </div>
+    </main>
+
+    <!-- Why This Matters Section -->
+    <section class="why-matters">
+      <h3>Why This Matters</h3>
+      <p>Online hate speech isn't just words; it incites violence, silences voices, and damages mental health.</p>
+      <ul>
+        <li><strong>Reduces Harm:</strong> Early detection helps mitigate the spread of toxic content and protect vulnerable users.</li>
+        <li><strong>Provides Insights:</strong> Analyze trends and patterns to understand the landscape of online discourse.</li>
+        <li><strong>Promotes Safety:</strong> Create tools that support content moderators and community managers.</li>
+      </ul>
+    </section>
+
+    <!-- What We Detect Section -->
+    <section class="examples">
+      <h3>What We Detect</h3>
+
+      <div class="example">
+        <p><strong>@example_user</strong><br>16/7/2025, 10:44:33 pm</p>
+        <p class="label">Hate Speech</p>
+        <p>This is a clear example of direct, hateful rhetoric targeting a specific group.</p>
+      </div>
+
+      <div class="example">
+        <p><strong>@example_user</strong><br>16/7/2025, 10:44:33 pm</p>
+        <p class="label">Offensive</p>
+        <p>While not direct hate, this content uses offensive slurs and insults.</p>
+      </div>
+
+      <div class="example">
+        <p><strong>@example_user</strong><br>16/7/2025, 10:44:33 pm</p>
+        <p class="label">Neutral</p>
+        <p>This tweet expresses a neutral opinion without any harmful language.</p>
+      </div>
+    </section>
+
+    <footer class="footer">© 2025 HateSense AI</footer>
+  </div>
+</body>
+</html>
