@@ -193,7 +193,21 @@
     <section class="result-section">
       <div class="result-card">
         <h3>Sentiment</h3>
-        <p>{{ sentiment or '--' }}</p>
+        <p>
+          {% if sentiment %}
+            {% if 'Positive' in sentiment %}
+              😊 {{ sentiment }}
+            {% elif 'Neutral' in sentiment %}
+              😐 {{ sentiment }}
+            {% elif 'Negative' in sentiment %}
+              😞 {{ sentiment }}
+            {% else %}
+              {{ sentiment }}
+            {% endif %}
+          {% else %}
+            --
+          {% endif %}
+        </p>
       </div>
       <div class="result-card">
         <h3>Hate Speech</h3>

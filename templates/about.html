@@ -191,10 +191,13 @@
     <div>
       <h3>Quick Links</h3>
       <ul>
-        <li><a href="index.html">🏠 Home</a></li>
-        <li><a href="about.html">📘 About</a></li>
-        <li><a href="services.html">🛠️ Services</a></li>
-        <li><a href="contact.html">📞 Contact</a></li>
+        <li><a href="{{ url_for('home') }}">🏠 Home</a></li>
+        <li><a href="{{ url_for('about') }}">📘 About</a></li>
+        <li><a href="{{ url_for('blog') }}">📰 Blog</a></li>
+        <li><a href="{{ url_for('contact') }}">📞 Contact</a></li>
+        <li><a href="{{ url_for('dashboard') }}">📊 Dashboard</a></li>
+        <li><a href="{{ url_for('input_page') }}">🔍 Input</a></li>
+        <li><a href="{{ url_for('export') }}">📤 Export</a></li>
       </ul>
       <div class="social-icons">
         <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -210,7 +213,6 @@
 </footer>
 
 
-<!-- Footer Section -->
 
 
 

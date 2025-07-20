@@ -90,5 +90,9 @@ def contact():
 def dashboard():
     return render_template('dashboard.html')
 
+@app.route('/export', methods=['GET'])
+def export():
+    return render_template('export.html')
+
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Export | HateSense AI</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body class="dark-mode">
+
+  <header class="header">
+    <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle Sidebar">&#9776;</button>
+    <h1 class="logo"  style="text-align: left "> HateSense AI</h1>
+    <button id="mode-toggle" class="mode-toggle" aria-label="Toggle Dark Mode">🌙</button>
+  </header>
+
+  <aside id="sidebar" class="sidebar active" aria-label="Sidebar Navigation">
+    <ul class="sidebar-list">
+      <li><a href="{{ url_for('home') }}" class="sidebar-link">Home</a></li>
+      <li><a href="{{ url_for('input_page') }}" class="sidebar-link">Analyzer</a></li>
+      <li><a href="{{ url_for('dashboard') }}" class="sidebar-link">Dashboard</a></li>
+      <li><a href="{{ url_for('about') }}" class="sidebar-link">About</a></li>
+      <li><a href="{{ url_for('blog') }}" class="sidebar-link">Blog</a></li>
+      <li><a href="{{ url_for('export') }}" class="sidebar-link active">Export</a></li>
+      <li><a href="#" class="sidebar-link">Settings</a></li>
+    </ul>
+  </aside>
+
+  <main class="home-container">
+    <section class="home-main">
+      <h2 class="section-title" style="text-align: center;">Export Results</h2>
+
+      <div class="flashcards-container">
+        <div class="flashcard glow-on-hover">
+          <h3>Example 1</h3>
+          <p><strong>Tweet:</strong> "Go back to your country!"<br>
+          <strong>Detected as:</strong> Hate Speech<br>
+          <strong>Confidence:</strong> 92%</p>
+        </div>
+        <div class="flashcard glow-on-hover">
+          <h3>Example 2</h3>
+          <p><strong>Tweet:</strong> "I love how inclusive this place is!"<br>
+          <strong>Detected as:</strong> Not Hate Speech<br>
+          <strong>Confidence:</strong> 87%</p>
+        </div>
+        <div class="flashcard glow-on-hover">
+          <h3>Example 3</h3>
+          <p><strong>Tweet:</strong> "These people ruin everything."<br>
+          <strong>Detected as:</strong> Hate Speech<br>
+          <strong>Confidence:</strong> 89%</p>
+        </div>
+      </div>
+
+      <div class="export-options" style="margin-top: 30px; text-align: center;">
+        <h2>Download Data</h2>
+        <button class="btn btn-glow" onclick="exportData('csv')" style="margin-right: 20px;">Export as CSV</button>
+        <button class="btn btn-glow" onclick="exportData('pdf')">Export as PDF</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div>
+        <h3>Our Mission</h3>
+        <p>
+          We aim to use artificial intelligence to detect and reduce hate speech and vulgar content on social media. By analyzing sentiment and offensive language, our project helps create a safer and more respectful online space.
+          <br><br>
+          Our technology uses machine learning to identify patterns in toxic language, empowering platforms and users to filter negativity. Together, we fight digital hate one post at a time!
+        </p>
+      </div>
+      <div>
+        <h3>Our Vision</h3>
+        <p>
+          To build a future where digital conversations are inclusive, clean, and free of hostility. Our vision is a world where AI is used not only for convenience, but also for compassion and community wellbeing.
+          <br><br>
+          We envision widespread use of our tools in schools, offices, and public platforms, where content quality matters. Let’s make the internet a better place.
+        </p>
+      </div>
+      <div>
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="{{ url_for('home') }}">🏠 Home</a></li>
+          <li><a href="{{ url_for('about') }}">📘 About</a></li>
+          <li><a href="{{ url_for('blog') }}">📰 Blog</a></li>
+          <li><a href="{{ url_for('contact') }}">📞 Contact</a></li>
+          <li><a href="{{ url_for('dashboard') }}">📊 Dashboard</a></li>
+          <li><a href="{{ url_for('input_page') }}">🔍 Input</a></li>
+          <li><a href="{{ url_for('export') }}">📤 Export</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2025 Amaan Shaikh. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    function exportData(type) {
+      alert("This is a placeholder for " + type + " export. Backend needed.");
+    }
+  </script>
+
+</body>
+</html>
