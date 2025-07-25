@@ -1,3 +1,14 @@
+/* Remove underline on hover for all buttons and links globally */
+a, a:visited, a:active, a:focus, a:hover, button, .btn, .analyze-btn, .sidebar-link {
+  text-decoration: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+.btn:hover, .analyze-btn:hover, button:hover, .sidebar-link:hover, a:hover {
+  text-decoration: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
 /* =============== BASE STYLES =============== */
 * {
   margin: 0;
@@ -440,6 +451,130 @@ a:hover {
   }
   .footer ul {
     align-items: center;
+  }
+}
+
+/* Additional responsiveness fixes for mobile and small screens */
+@media (max-width: 768px) {
+  body, .main-content, .home-container, .analyze-tweets-section, .dashboard-section {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
+
+  .main-content {
+    margin-left: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .sidebar {
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+
+  .sidebar-list {
+    justify-content: space-around !important;
+  }
+
+  /* Fix input form width and centering */
+  .analyze-form {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 10px !important;
+  }
+
+  /* Center footer content */
+  .footer {
+    margin-left: 0 !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .analyze-input {
+    font-size: 1rem !important;
+    padding: 12px 12px 12px 40px !important;
+  }
+
+  .analyze-btn {
+    padding: 12px 25px !important;
+    font-size: 1rem !important;
+  }
+
+  .result-section, .dashboard-section {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
+  .result-card {
+    width: 90% !important;
+    margin: 10px auto !important;
+  }
+}
+
+/* Fixes for very small screens (320px width) */
+@media (max-width: 360px) {
+  body, .main-content, .home-container, .analyze-tweets-section, .dashboard-section {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
+
+  .header {
+    padding: 8px 10px !important;
+  }
+
+  .logo {
+    font-size: 1.4rem !important;
+  }
+
+  .sidebar {
+    display: none !important; /* Hide sidebar on very small screens */
+  }
+
+  .sidebar-toggle {
+    display: block !important;
+  }
+
+  .analyze-form {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 5px !important;
+  }
+
+  .analyze-input {
+    font-size: 0.9rem !important;
+    padding: 10px 10px 10px 35px !important;
+  }
+
+  .analyze-btn {
+    padding: 10px 20px !important;
+    font-size: 0.9rem !important;
+  }
+
+  .dashboard-section {
+    padding: 0 5px !important;
+  }
+
+  .result-card {
+    width: 100% !important;
+    margin: 8px 0 !important;
+  }
+
+  /* Fix navigation links font size and spacing */
+  .sidebar-link {
+    font-size: 0.85rem !important;
+    padding: 8px 10px !important;
   }
 }
 

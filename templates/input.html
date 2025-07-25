@@ -6,6 +6,14 @@
   <title>HateSense AI - Analyzer</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
   <style>
+    /* Remove underline on hover for all buttons and links */
+    a, a:visited, a:active, a:focus, a:hover, button, .analyze-btn, .sidebar-link {
+      text-decoration: none !important;
+      outline: none;
+    }
+    .analyze-btn:hover, button:hover, .sidebar-link:hover {
+      text-decoration: none !important;
+    }
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
@@ -178,75 +186,102 @@
     <section class="analyze-tweets-section">
       <div class="analyze-header">
         <span class="analyze-icon">🔍</span>
-        <h2>Analyze Tweets</h2>
-        <p>Enter a Twitter handle to begin the analysis.</p>
+        <h2>Text Analysis Dashboard</h2>
+        <p>Enter any text to analyze for sentiment, hate speech, and offensive words.</p>
       </div>
       <form method="POST" action="{{ url_for('input_page') }}" class="analyze-form">
         <div class="input-wrapper">
           <span class="twitter-icon">🐦</span>
-          <input type="text" name="user_input" placeholder="@username or twitter.com/username" required value="{{ user_input or '' }}" class="analyze-input" />
+          <input type="text" name="user_input" placeholder="Type your text here..." required value="{{ user_input or '' }}" class="analyze-input" />
         </div>
-        <button type="submit" class="analyze-btn">Scrape & Analyze Tweets</button>
+        <button type="submit" class="analyze-btn">Analyze Text</button>
       </form>
     </section>
 
-    <section class="result-section">
-      <div class="result-card">
-        <h3>Sentiment</h3>
-        <p>
+    {% if highlighted_input %}
+    <section class="highlighted-input-section" style="margin-top: 30px; max-width: 600px; margin-left: auto; margin-right: auto; text-align: left; background: #1a1a2e; padding: 15px; border-radius: 10px; color: white;">
+      <h3>Input Text with Offensive Words Highlighted</h3>
+      <p style="font-size: 1.1rem; line-height: 1.5;">{{ highlighted_input | safe }}</p>
+    </section>
+    {% endif %}
+
+    {% if sentiment or hate_speech or offensive_word_count|int > 0 %}
+    <section class="dashboard-section" style="margin-top:40px;">
+      <div style="display:flex; flex-wrap:wrap; gap:30px; justify-content:center;">
+        <div style="background:#1f1f2e; border-radius:12px; padding:30px 20px; min-width:320px; text-align:center; box-shadow:0 0 10px #8a2be2;">
+          <h2 style="color:#cfa8ff; margin-bottom:20px;">Content Breakdown</h2>
+          <div style="margin-bottom:20px;">{% if pie_chart_div %}{{ pie_chart_div|safe }}{% endif %}</div>
+          <div style="display:flex; justify-content:space-around; gap:20px;">
+            <div style="background:#2c2c3e; border-radius:10px; padding:20px; min-width:120px;">
+              <span style="font-size:2.2rem; color:#ff6b6b;">&#9888;&#65039;</span><br>
+              <span style="font-size:1.2rem; color:#ff6b6b; font-weight:bold;">Hate Speech</span>
+              <div style="font-size:2rem; font-weight:bold; margin-top:5px;">{{ hate_score['Hate Speech'] }}</div>
+            </div>
+            <div style="background:#2c2c3e; border-radius:10px; padding:20px; min-width:120px;">
+              <span style="font-size:2.2rem; color:#ffd700;">&#128737;</span><br>
+              <span style="font-size:1.2rem; color:#ffd700; font-weight:bold;">Offensive</span>
+              <div style="font-size:2rem; font-weight:bold; margin-top:5px;">{{ offensive_word_count }}</div>
+            </div>
+            <div style="background:#2c2c3e; border-radius:10px; padding:20px; min-width:120px;">
+              <span style="font-size:2.2rem; color:#4caf50;">&#128994;</span><br>
+              <span style="font-size:1.2rem; color:#4caf50; font-weight:bold;">Neutral</span>
+              <div style="font-size:2rem; font-weight:bold; margin-top:5px;">{{ sentiment_score['Neutral'] }}</div>
+            </div>
+            <div style="background:#2c2c3e; border-radius:10px; padding:20px; min-width:120px;">
+              <span style="font-size:2.2rem; color:#8a2be2;">&#128522;</span><br>
+              <span style="font-size:1.2rem; color:#8a2be2; font-weight:bold;">Positive</span>
+              <div style="font-size:2rem; font-weight:bold; margin-top:5px;">{{ sentiment_score['Positive'] }}</div>
+            </div>
+            <div style="background:#2c2c3e; border-radius:10px; padding:20px; min-width:120px;">
+              <span style="font-size:2.2rem; color:#e53935;">&#128545;</span><br>
+              <span style="font-size:1.2rem; color:#e53935; font-weight:bold;">Negative</span>
+              <div style="font-size:2rem; font-weight:bold; margin-top:5px;">{{ sentiment_score['Negative'] }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex; flex-wrap:wrap; gap:30px; justify-content:center; margin-top:40px;">
+        <div style="background:#1f1f2e; border-radius:12px; padding:20px; min-width:320px; text-align:center; box-shadow:0 0 10px #8a2be2;">
+          <h3 style="color:#cfa8ff;">Sentiment (Pie Chart)</h3>
+          {% if pie_chart_div %}{{ pie_chart_div|safe }}{% endif %}
+        </div>
+        <div style="background:#1f1f2e; border-radius:12px; padding:20px; min-width:320px; text-align:center; box-shadow:0 0 10px #8a2be2;">
+          <h3 style="color:#cfa8ff;">Offensive Word Frequency (Bar Chart)</h3>
+          {% if bar_chart_div %}{{ bar_chart_div|safe }}{% endif %}
+        </div>
+        <div style="background:#1f1f2e; border-radius:12px; padding:20px; min-width:320px; text-align:center; box-shadow:0 0 10px #8a2be2;">
+          <h3 style="color:#cfa8ff;">Offensive Word Trend (Line Chart)</h3>
+          {% if line_chart_div %}{{ line_chart_div|safe }}{% endif %}
+        </div>
+      </div>
+      <div style="margin-top:30px; text-align:center;">
+        <span style="font-size:1.3rem; color:#ff6b6b; font-weight:bold;">Vulgarity Level: {{ vulgarity }}</span>
+        {% if offensive_words_found and offensive_word_count|int > 0 %}
+          <div style="margin-top:10px; font-size:1rem; color:#ffb6b6;">
+            <strong>Offensive Words Found:</strong><br>
+            {% for word in offensive_words_found %}
+              <span style="color: red; font-weight: bold;">{{ word }}</span>{% if not loop.last %}, {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+      <div style="margin-top:30px; text-align:center;">
+        <span style="font-size:1.5rem; font-weight:bold;">Sentiment:
           {% if sentiment %}
             {% if 'Positive' in sentiment %}
-              😊 {{ sentiment }}
+              <span style="font-size:2rem;">🙂</span>
             {% elif 'Neutral' in sentiment %}
-              😐 {{ sentiment }}
+              <span style="font-size:2rem;">😐</span>
             {% elif 'Negative' in sentiment %}
-              😞 {{ sentiment }}
-            {% else %}
-              {{ sentiment }}
+              <span style="font-size:2rem;">😠</span>
             {% endif %}
-          {% else %}
-            --
+            <span style="margin-left:10px;">{{ sentiment }}</span>
           {% endif %}
-        </p>
-      </div>
-      <div class="result-card">
-        <h3>Hate Speech</h3>
-        <p>{{ hate_speech or '--' }}</p>
-      </div>
-      <div class="result-card">
-        <h3>Vulgarity Level</h3>
-        <p>{{ vulgarity or '--' }}</p>
-      </div>
-      <div class="result-card">
-        <h3>Offensive Word Count</h3>
-        <p>{{ offensive_word_count or '--' }}</p>
+        </span>
       </div>
     </section>
-
-    <section class="charts-section">
-      <div class="chart-container">
-        <h3>Sentiment Distribution (Pie)</h3>
-        {% if pie_chart %}
-        <img src="{{ url_for('static', filename='charts/' + pie_chart) }}" alt="Sentiment Pie Chart">
-        {% else %}
-        <p>Submit a username to generate insights.</p>
-        {% endif %}
-      </div>
-
-      <div class="chart-container">
-        <h3>Hate Speech Count (Bar)</h3>
-        {% if bar_chart %}
-        <img src="{{ url_for('static', filename='charts/' + bar_chart) }}" alt="Hate Bar Chart">
-        {% else %}
-        <p>Submit a username to generate insights.</p>
-        {% endif %}
-      </div>
-    </section>
+    {% endif %}
   </main>
-
-  <footer class="footer">
-    <p>&copy; 2025 HateSense AI</p>
-  </footer>
 
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
   <!-- footer sections -->
